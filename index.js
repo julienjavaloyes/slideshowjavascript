@@ -14,7 +14,7 @@ var subreddit=[];
 var lastsubreddit='';
 var sType='hot';
 var sFreq='year';
-var nbpicsrequest=5;
+var nbpicsrequest=100;
 
 var time = 7000;	// Time Between Switch
 var stoptime=1;
@@ -120,6 +120,9 @@ function getrandimg(){
 	}
 	i=Math.floor(Math.random()*iterimg-1);
 	if (imagealreadydisplayed.has(i)) {
+		i=getrandimg();
+	}
+	if (i<1) {
 		i=getrandimg();
 	}
 	return i;
