@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <main>    
+      <div class="hero">
+
+        <div class="menuh">
+          <div class="menuh">
+            <button onclick="mainfunction()" class="slider_start">_Start_</button>
+            <button onclick="stopfunction()" class="slider_start">_Stop_</button>
+            <p class="startstop" id="startstop">STOP</p>
+          </div>
+          <p class="info" id="info">INFO</p>
+        </div>
+
+        <div class="menuh">
+          <div class="menuh">        
+            <input type="text" id="inputtext" value="Art+pics+sketchpad"></input>
+          </div>
+          <div class="menuh">
+            <button onclick="typehotfunction()" class="slider_start">_Hot_</button>
+            <button onclick="typenewfunction()" class="slider_start">_New_</button>
+            <button onclick="typetopfunction()" class="slider_start">_Top_</button>
+            <button onclick="typerisingfunction()" class="slider_start">_Rising_</button>
+            <p class="hotnewtoprising" id="hotnewtoprising">HOT</p>
+          </div>
+          <div class="menuh">
+            <button onclick="freqallfunction()" class="slider_start">_All_</button>
+            <button onclick="freqyearfunction()" class="slider_start">_Year_</button>
+            <button onclick="freqmonthfunction()" class="slider_start">_Month_</button>
+            <p class="allyearmonth" id="allyearmonth">ALL</p>
+          </div>
+          <div class="menuh">        
+            <button onclick="time3s()" class="slider_start">_3s_</button>
+            <button onclick="time5s()" class="slider_start">_5s_</button>
+            <button onclick="time7s()" class="slider_start">_7s_</button>
+            <button onclick="time10s()" class="slider_start">_10s_</button>
+          <p class="stime" id="stime">5s</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="displayimg"> 
+        <img src="https://www.redditinc.com/assets/images/site/brand_header_mobile@3x.png" name="slide"  /></div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+
+@mixin stop-top-overflow ($sizeH, $sizeV) {
+    @media only screen and (min-width: $sizeH) and (max-height: $sizeV) {
+        @content; 
+    }
+}
+
+@mixin for-desktop-up ($size) {
+    @media (min-width: $size) { 
+        @content; 
+    }
+}

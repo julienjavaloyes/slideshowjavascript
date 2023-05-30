@@ -1,0 +1,10 @@
+@use "../0-abstracts/colors" as c;
+
+body {
+    button {
+        border: none;
+        &:hover {
+            border: none;
+        }
+    }
+}

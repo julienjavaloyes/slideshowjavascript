@@ -1,0 +1,71 @@
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/*
+h1,
+h2,
+h3 {
+    margin-top: 0;
+}
+
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+*/
+body {
+  background-color: black;
+  color: white;
+}
+
+body {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+body button {
+  border: none;
+}
+body button:hover {
+  border: none;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+main p {
+  margin: 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+main button {
+  margin-right: 0.5rem;
+}
+main .menuh {
+  margin: 1px;
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+main .displayimg {
+  width: 85vh;
+  height: auto;
+  padding: 2px;
+  background-color: gray;
+}
+main .displayimg img {
+  max-width: 100%;
+}/*# sourceMappingURL=main.css.map */
