@@ -22,7 +22,7 @@ var subreddit=[];
 var lastsubreddit='';
 var sType='hot';
 var sFreq='year';
-var nbpicsrequest=10;
+var nbpicsrequest=100;
 
 var time = 7000;	// Time Between Switch
 var stop_loop=1;
