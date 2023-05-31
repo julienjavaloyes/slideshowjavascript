@@ -10,47 +10,73 @@
   </head>
   <body>
     <main>    
-      <div class="hero">
+      <div class="slider">
 
-        <div class="menuh">
+        <div class="slider_nav">
           <div class="menuh">
-            <button onclick="mainfunction()" class="slider_start">_Start_</button>
-            <button onclick="stopfunction()" class="slider_start">_Stop_</button>
+            <button onclick="previous()">Previous</button>
+            <button onclick="next()">Next</button>
+            <p class="previousnext" id="previousnext">1</p>
+          </div>
+          <div class="menuh">
+            <button onclick="startfunction()">Start</button>
+            <button onclick="stopfunction()">Stop</button>
             <p class="startstop" id="startstop">STOP</p>
           </div>
           <p class="info" id="info">INFO</p>
-        </div>
-
-        <div class="menuh">
           <div class="menuh">        
-            <input type="text" id="inputtext" value="Art+pics+sketchpad"></input>
+            <button onclick="time3s()">3s</button>
+            <button onclick="time5s()">5s</button>
+            <button onclick="time7s()">7s</button>
+            <button onclick="time10s()">10s</button>
+            <p class="stime" id="stime">5s</p>
           </div>
           <div class="menuh">
-            <button onclick="typehotfunction()" class="slider_start">_Hot_</button>
-            <button onclick="typenewfunction()" class="slider_start">_New_</button>
-            <button onclick="typetopfunction()" class="slider_start">_Top_</button>
-            <button onclick="typerisingfunction()" class="slider_start">_Rising_</button>
-            <p class="hotnewtoprising" id="hotnewtoprising">HOT</p>
-          </div>
-          <div class="menuh">
-            <button onclick="freqallfunction()" class="slider_start">_All_</button>
-            <button onclick="freqyearfunction()" class="slider_start">_Year_</button>
-            <button onclick="freqmonthfunction()" class="slider_start">_Month_</button>
-            <p class="allyearmonth" id="allyearmonth">ALL</p>
+            <button onclick="vheigthdecreasefunction()">Decrease</button>
+            <button onclick="vheigthincreasefunction()">Increase</button>
+            <p class="vheight hideshowmenu" id="startstop">0</p>
           </div>
           <div class="menuh">        
-            <button onclick="time3s()" class="slider_start">_3s_</button>
-            <button onclick="time5s()" class="slider_start">_5s_</button>
-            <button onclick="time7s()" class="slider_start">_7s_</button>
-            <button onclick="time10s()" class="slider_start">_10s_</button>
-          <p class="stime" id="stime">5s</p>
+            <input type="text" id="inputtext" class="hideshowmenu" value="Art+pics+sketchpad"></input>
+          </div>
+          <div class="menuh">
+            <button onclick="typehotfunction()" class="hideshowmenu">Hot</button>
+            <button onclick="typenewfunction()" class="hideshowmenu">New</button>
+            <button onclick="typetopfunction()" class="hideshowmenu">Top</button>
+            <button onclick="typerisingfunction()" class="hideshowmenu">Rising</button>
+            <p class="hotnewtoprising hideshowmenu" id="hotnewtoprising">HOT</p>
+          </div>
+          <div class="menuh">
+            <button onclick="freqallfunction()" class="hideshowmenu">All</button>
+            <button onclick="freqyearfunction()" class="hideshowmenu">Year</button>
+            <button onclick="freqmonthfunction()" class="hideshowmenu">Month</button>
+            <p class="allyearmonth hideshowmenu" id="allyearmonth">ALL</p>
           </div>
 
         </div>
+
+        <div class="slider_content"> 
+          <div class="slider_content_item">
+            <img id="IMG1" src="img1.jpg" alt="" onerror="imgError(this);">
+          </div>
+          <div class="slider_content_item">
+            <img id="IMG2"  src="img1.jpg" alt="" onerror="imgError(this);">
+          </div>
+          <div class="slider_content_item">
+            <img id="IMG3"  src="img1.jpg" alt="" onerror="imgError(this);">
+          </div>
+          <div class="slider_content_item">
+            <img id="IMG4"  src="img1.jpg" alt="" onerror="imgError(this);">
+          </div>
+          <div class="slider_content_item">
+            <img id="IMG5"  src="img1.jpg" alt="" onerror="imgError(this);">
+          </div>
+        </div>
+
+
       </div>
-      <div class="displayimg"> 
-        <img src="https://www.redditinc.com/assets/images/site/brand_header_mobile@3x.png" name="slide"  /></div>
-      </div>
+
+
     </main>
   </body>
 </html>

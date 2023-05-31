@@ -4,32 +4,38 @@ var i = 0; 			// Start Point
 var iterimg=0;
 var nbimgdisplayed=0;
 
+var num_slider=1;
+var num_slider_load=1;
+var move_next=0;
+
 var images = [];
 var imagessource = [];
 const imagealreadydisplayed=new Map();
+const imagereturningerror=new Map();
 var imgpath = '';	// Images Array
+var nberrors=0;
+
+var vheight=0;
 
 var itersubreddit=0;
 var subreddit=[];
 var lastsubreddit='';
 var sType='hot';
 var sFreq='year';
-var nbpicsrequest=100;
+var nbpicsrequest=10;
 
 var time = 7000;	// Time Between Switch
-var stoptime=1;
+var stop_loop=1;
 var inputlistsubreddit="";
 
 // Image List
-images[0] = "https://www.redditinc.com/assets/images/site/brand_header_mobile@3x.png";
-images[1] = "https://www.redditinc.com/assets/images/site/brand_header_mobile@3x.png";
+images[0] = "img1";
+images[1] = "img1";
+images[2] = "img1";
+images[3] = "img1";
+images[4] = "img1";
 
-function stopfunction(){
-	stoptime=0;
-	document.getElementById("startstop").innerHTML="STOP";
-}
-
-
+// ======================== PARAM ========================
 function typehotfunction(){
 	sType='hot';
 	document.getElementById("hotnewtoprising").innerHTML=sType;
@@ -78,14 +84,120 @@ function time10s(){
 	document.getElementById("stime").innerHTML=time/1000 + "s";
 }
 
-function mainfunction(){
-	document.getElementById("startstop").innerHTML="Running...";
-	stoptime=1;
+// ======================== PREVIOUS NEXT ========================
+function previous(){
+	if (num_slider>1) {
+		num_slider -=1;
+		const widthSlider=document.querySelector('.slider').offsetWidth;
+		document.querySelector('.slider_content').scrollLeft -= widthSlider;
+		document.getElementById("previousnext").innerHTML=num_slider + ' (' + num_slider_load + ')';
+	}
+	else {
+		num_slider =5;
+		const widthSlider=document.querySelector('.slider').offsetWidth;
+		document.querySelector('.slider_content').scrollLeft += 4*widthSlider;
+		document.getElementById("previousnext").innerHTML=num_slider + ' (' + num_slider_load + ')';
+	}
+}
+function next(){
+	if (num_slider<5) {
+		num_slider +=1;
+		const widthSlider=document.querySelector('.slider').offsetWidth;
+		document.querySelector('.slider_content').scrollLeft += widthSlider;
+		document.getElementById("previousnext").innerHTML=num_slider + ' (' + num_slider_load + ')';
+	}
+	else {
+		num_slider =1;
+		const widthSlider=document.querySelector('.slider').offsetWidth;
+		document.querySelector('.slider_content').scrollLeft -= 4*widthSlider;
+		document.getElementById("previousnext").innerHTML=num_slider + ' (' + num_slider_load + ')';
+	}
+	console.log('DISPLAYING IMG'  + num_slider)
+}
+function nextsliderload(){
+	if (num_slider_load<5) {
+		num_slider_load +=1;
+	}
+	else {
+		num_slider_load =1;
+	}
+}
+
+// ======================== FORMAT NEXT ========================
+function hide_menu() {
+	var elems = document.querySelectorAll('.hideshowmenu');
+    var index = 0, length = elems.length;
+    for ( ; index < length; index++) {
+        elems[index].style.color='transparent';
+		elems[index].style.borderColor='transparent';
+    }
+}
+function show_menu() {
+	var elems = document.querySelectorAll('.hideshowmenu');
+    var index = 0, length = elems.length;
+    for ( ; index < length; index++) {
+        elems[index].style.color='gray';
+		elems[index].style.borderColor='gray';
+    }
+}
+
+// ======================== HEIGHT ========================
+function vheigthdecreasefunction() {
+	if (vheight==0) {
+		vheight=250;
+	}
+	vheight -= 50;
+	if (vheight<100) {
+		vheight=100;
+	}
+	document.querySelector('.slider').style.height=vheight + 'px';
+}
+function vheigthincreasefunction() {
+	if (vheight==0) {
+		vheight=250;
+	}
+	vheight += 50;
+	document.querySelector('.slider').style.height=vheight + 'px';
+}
+
+// ======================== PREVIOUS NEXT ========================
+function stopfunction(){
+	stop_loop=1;
+	document.getElementById("startstop").innerHTML="STOP";
+	show_menu();
+}
+
+function startfunction(){
+	hide_menu();
+	document.getElementById("startstop").innerHTML="Loading...";
+	stop_loop=0;
 	inputlistsubreddit=document.getElementById("inputtext").value;
 	subreddit=inputlistsubreddit.split('+');
 	//console.log('runALL');
 	//console.log(subreddit);
+	document.getElementById("startstop").innerHTML="Loading 1";
+	setTimeout("changeImg()", 2000);
+	document.getElementById("startstop").innerHTML="Loading 2";
+	setTimeout("changeImg()", 4000);
+	document.getElementById("startstop").innerHTML="Loading 3";
+	setTimeout("changeImg()", 6000);
+	document.getElementById("startstop").innerHTML="Loading 4";
+	setTimeout("changeImg()", 8000);
+	//Show next Image
+	setTimeout("mainfunctionloop()", 10000);
+}
+
+function mainfunctionloop(){
+	document.getElementById("startstop").innerHTML="Running...";
+
+	//Load next images
 	changeImg();
+
+	// Run function every x seconds
+	if (stop_loop==0){
+		setTimeout("mainfunctionloop()", time);
+	}
+	
 }
 
 function UpdateIMGs(subredditval){
@@ -112,7 +224,7 @@ function UpdateIMGs(subredditval){
 }
 
 function getrandimg(){
-	if (nbimgdisplayed > iterimg-5) {
+	if (nbimgdisplayed > iterimg - 5 - nberrors) {
 		console.log('=== RESET  ===');
 		imagealreadydisplayed.clear();
 		imagealreadydisplayed.set(0,0);
@@ -120,6 +232,9 @@ function getrandimg(){
 	}
 	i=Math.floor(Math.random()*iterimg-1);
 	if (imagealreadydisplayed.has(i)) {
+		i=getrandimg();
+	}
+	if (imagereturningerror.has(images[i])) {
 		i=getrandimg();
 	}
 	if (i<1) {
@@ -137,16 +252,31 @@ function changeImg(){
 		itersubreddit++;
 	}
 	if (iterimg>0){
+		nextsliderload();
+		if (num_slider_load>5) {
+			move_next=1;
+		}
+		document.getElementById("previousnext").innerHTML='Loading' + ' (' + num_slider_load + ')';
 		i=getrandimg();
 		imagealreadydisplayed.set(i,i);
 		document.getElementById("info").innerHTML=  '(' + nbimgdisplayed + ') ' + i  + "  / " + iterimg   + ' => ' +  images[i] + ' (' + imagessource[i]  + ')';
-		document.slide.src = images[i];
+		document.getElementById("IMG" + num_slider_load).src = images[i];
+		console.log('UPDATING SRC'  + num_slider_load)
 		nbimgdisplayed++;
 	}
 
-	// Run function every x seconds
-	if (stoptime===1){
-		setTimeout("changeImg()", time);
+	//Show next Image
+	if (move_next=1) {
+		next(); 
 	}
-	
+}
+
+function imgError(image){
+	console.log('MANAGING ERROR SRC' + image.id);
+	image.onerror = "";
+	i=getrandimg();
+	document.getElementById(image.id).src = images[i] ;
+	imagereturningerror.set(image.src,image.src);
+	nberrors +=1;
+	return true;
 }
