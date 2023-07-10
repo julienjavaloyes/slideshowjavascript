@@ -10,6 +10,7 @@ var move_next=0;
 
 var images = [];
 var imagessource = [];
+var imagesdesc = [];
 const imagealreadydisplayed=new Map();
 const imagereturningerror=new Map();
 var imgpath = '';	// Images Array
@@ -34,6 +35,11 @@ images[1] = "img1";
 images[2] = "img1";
 images[3] = "img1";
 images[4] = "img1";
+imagesdesc[0] = "img1";
+imagesdesc[1] = "img1";
+imagesdesc[2] = "img1";
+imagesdesc[3] = "img1";
+imagesdesc[4] = "img1";
 
 // ======================== PARAM ========================
 function typehotfunction(){
@@ -98,6 +104,7 @@ function previous(){
 		document.querySelector('.slider_content').scrollLeft += 4*widthSlider;
 		document.getElementById("previousnext").innerHTML=num_slider + ' (' + num_slider_load + ')';
 	}
+	document.getElementById("info").innerHTML= imagesdesc[num_slider];
 }
 function next(){
 	if (num_slider<5) {
@@ -112,7 +119,7 @@ function next(){
 		document.querySelector('.slider_content').scrollLeft -= 4*widthSlider;
 		document.getElementById("previousnext").innerHTML=num_slider + ' (' + num_slider_load + ')';
 	}
-	console.log('DISPLAYING IMG'  + num_slider)
+	document.getElementById("info").innerHTML= imagesdesc[num_slider];
 }
 function nextsliderload(){
 	if (num_slider_load<5) {
@@ -258,10 +265,10 @@ function changeImg(){
 		}
 		document.getElementById("previousnext").innerHTML='Loading' + ' (' + num_slider_load + ')';
 		i=getrandimg();
-		imagealreadydisplayed.set(i,i);
-		document.getElementById("info").innerHTML=  '(' + nbimgdisplayed + ') ' + i  + "  / " + iterimg   + ' => ' +  images[i] + ' (' + imagessource[i]  + ')';
+		imagealreadydisplayed.set(i,i); 
+		console.log (num_slider_load + '');
+		imagesdesc[num_slider_load] =  '(' + nbimgdisplayed + ') ' + i  + "  / " + iterimg   + ' => ' +  images[i] + ' (' + imagessource[i]  + ')';
 		document.getElementById("IMG" + num_slider_load).src = images[i];
-		console.log('UPDATING SRC'  + num_slider_load)
 		nbimgdisplayed++;
 	}
 
