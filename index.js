@@ -211,11 +211,13 @@ function UpdateIMGs(subredditval){
 	//if (lastsubreddit!=subredditval){after=''}
 	console.log('=== UPDATE IMGs ===')
 	console.log(subredditval)
-	fetch('https://www.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
+	console.log('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
+	fetch('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
 	.then(response => response.json())
 	.then(body => {
 		after=body.data.after
 		for (let index = 0; index < body.data.children.length; index++) {
+			console.log(body.data.children.length);
 			if(body.data.children[index].data.post_hint=="image") {
 				imgpath=body.data.children[index].data.url_overridden_by_dest
 				if (imgpath.substring(imgpath.length-3,imgpath.length)!="gif"){
