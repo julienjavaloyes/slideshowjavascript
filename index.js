@@ -212,7 +212,10 @@ function UpdateIMGs(subredditval){
 	console.log('=== UPDATE IMGs ===')
 	console.log(subredditval)
 	console.log('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
-	fetch('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
+	//fetch('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
+	//.then(response => response.json())
+	// https://corsproxy.io/?url=https://example.com TO AVOID CORS!!!
+	fetch('https://corsproxy.io/?url=https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
 	.then(response => response.json())
 	.then(body => {
 		after=body.data.after
