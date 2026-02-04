@@ -3,9 +3,10 @@
 var i = 0; 			// Start Point
 var iterimg=0;
 var nbimgdisplayed=0;
+var imgloaded=0;
 
 var num_slider=1;
-var num_slider_load=1;
+var num_slider_load=3;
 var move_next=0;
 
 var images = [];
@@ -20,6 +21,7 @@ var vheight=0;
 
 var itersubreddit=0;
 var subreddit=[];
+var subredditsplit=[];
 var lastsubreddit='';
 var sType='hot';
 var sFreq='year';
@@ -178,8 +180,9 @@ function startfunction(){
 	hide_menu();
 	document.getElementById("startstop").innerHTML="Loading...";
 	stop_loop=0;
+	// inputlistsubreddit=document.getElementById("inputtext").value;
+	// subreddit=inputlistsubreddit.split('+');
 	inputlistsubreddit=document.getElementById("inputtext").value;
-	subreddit=inputlistsubreddit.split('+');
 	//console.log('runALL');
 	//console.log(subreddit);
 	document.getElementById("startstop").innerHTML="Loading 1";
@@ -209,35 +212,47 @@ function mainfunctionloop(){
 
 function UpdateIMGs(subredditval){
 	//if (lastsubreddit!=subredditval){after=''}
-	console.log('=== UPDATE IMGs ===')
-	console.log(subredditval)
-	console.log('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
+	console.log('=== UPDATE IMGs ===');
+	subreddit=subredditval.split("+");
+	console.log(subreddit.length);
+	for (let step = 0; step < subreddit.length; step++) {
+  // Runs 5 times, with values of step 0 through 4.
+		iterimg++;
+		subredditsplit=subreddit[step].split("|");
+		//console.log(subredditsplit[0]);
+		//console.log(subredditsplit[1]);
+		subredditval=subredditsplit[0];
+		imgpath=subredditsplit[1];
+		images[iterimg]=imgpath;
+		imagessource[iterimg]=subredditval;
+	}
 	//fetch('https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
 	//.then(response => response.json())
 	// https://corsproxy.io/?url=https://example.com TO AVOID CORS !!!!
-	fetch('https://corsproxy.io/?url=https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
-	.then(response => response.json())
-	.then(body => {
-		after=body.data.after
-		for (let index = 0; index < body.data.children.length; index++) {
-			console.log(body.data.children.length);
-			if(body.data.children[index].data.post_hint=="image") {
-				imgpath=body.data.children[index].data.url_overridden_by_dest
-				if (imgpath.substring(imgpath.length-3,imgpath.length)!="gif"){
-					iterimg++
-					//body.data.children[index].data.url_overridden_by_dest
-					images[iterimg]=imgpath
-					imagessource[iterimg]=subredditval
-				}
-			} 
-		}
-		}
-		)
+
+	// fetch('https://corsproxy.io/?url=https://api.reddit.com/r/' + subredditval + '/' + sType + '.json?limit=' + nbpicsrequest + '&t=' + sFreq)
+	// .then(response => response.json())
+	// .then(body => {
+	// 	after=body.data.after
+	// 	for (let index = 0; index < body.data.children.length; index++) {
+	// 		console.log(body.data.children.length);
+	// 		if(body.data.children[index].data.post_hint=="image") {
+	// 			imgpath=body.data.children[index].data.url_overridden_by_dest
+	// 			if (imgpath.substring(imgpath.length-3,imgpath.length)!="gif"){
+	// 				iterimg++
+	// 				//body.data.children[index].data.url_overridden_by_dest
+	// 				images[iterimg]=imgpath
+	// 				imagessource[iterimg]=subredditval
+	// 			}
+	// 		} 
+	// 	}
+	// 	}
+	// 	)
 }
 
 function getrandimg(){
 	if (nbimgdisplayed > iterimg - 5 - nberrors) {
-		console.log('=== RESET  ===');
+		//console.log('=== RESET  ===');
 		imagealreadydisplayed.clear();
 		imagealreadydisplayed.set(0,0);
 		nbimgdisplayed=0;
@@ -259,9 +274,9 @@ function getrandimg(){
 function changeImg(){
 	//console.log('itersub:' + itersubreddit);
 	//console.log('TOTALIMG:' + iterimg);
-	if (itersubreddit < subreddit.length) {
-		UpdateIMGs(subreddit[itersubreddit])
-		itersubreddit++;
+	if (imgloaded < 1) {
+		UpdateIMGs(inputlistsubreddit)
+		imgloaded=10;
 	}
 	if (iterimg>0){
 		nextsliderload();
